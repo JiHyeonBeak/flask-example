@@ -27,17 +27,17 @@ def get_num():
 
     result = format_word(_up,_down)
     #result = str(_up) + str(_down)
-    return result
+    return render_template('hello.html', gues=result)
 
 def calc_mv():
     return
 
 def format_word(u,d):
-    # 상괘 가공
+    # 하괘 가공
     buf_u = datas.get(u)
     buf1 = buf_u[0:3]
 
-    # 하괘 가공
+    # 상괘 가공
     buf_d = datas.get(d)
     buf2 = buf_d[2:5]
     
@@ -45,8 +45,15 @@ def format_word(u,d):
     print("buf1 :",buf1)
     print("buf2 :",buf2)
     
-    result = ''
-    return result
+    bufs = buf1+buf2
+    print("bufs :",bufs)
+
+    keyword = []
+    for i in range(1,7):
+        print("i :",i)
+        keyword += bufs[-i]
+    print("result :",keyword)
+    return keyword
 
 if __name__ == '__main__':
     app.run()

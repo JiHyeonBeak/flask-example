@@ -6,6 +6,10 @@
     <title>테스트 화면</title>
 </head>
 <body>
-    테스트 화면입니다.
+    {%  for gue in gues  %}
+        <div>
+            {{gue}}
+        </div>
+    {% endfor %}
 </body>
 </html>
