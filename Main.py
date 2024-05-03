@@ -14,6 +14,10 @@ datas = {
     8:'未巳卯丑亥酉'
 }
 
+datas2 = {
+    
+}
+
 
 @app.route('/')
 def hello_world():
@@ -24,10 +28,9 @@ def get_num():
     _up = r.randrange(1,9)
     _down = r.randrange(1,9)
     movement = r.randrange(1,7)
-
+    movs = calc_mv()
     result = format_word(_up,_down)
-    #result = str(_up) + str(_down)
-    return render_template('hello.html', gues=result)
+    return render_template('hello.html', gues=result, mov=movs)
 
 def calc_mv():
     return
