@@ -5,6 +5,6 @@ app = Flask(__name__)
 if __name__ == '__main__':
     app.run()
 
-@app.route('/')
-def hello_world():
-    return render_template('hello.html')
+@app.route('/test')
+def call_sub():
+    return render_template('sub.html')

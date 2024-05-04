@@ -15,7 +15,14 @@ datas = {
 }
 
 datas2 = {
-    
+    1:[11,15,17,18,58,78,38,31],
+    2:[22,26,28,27,67,87,47,42],
+    3:[33,37,35,36,76,56,16,13],
+    4:[44,48,46,45,85,65,25,24],
+    5:[55,51,53,54,14,34,74,75],
+    6:[66,62,64,63,23,43,83,86],
+    7:[77,73,71,72,32,12,52,57],
+    8:[88,84,82,81,41,21,61,68],
 }
 
 
@@ -28,9 +35,26 @@ def get_num():
     _up = r.randrange(1,9)
     _down = r.randrange(1,9)
     movement = r.randrange(1,7)
+
     movs = calc_mv()
     result = format_word(_up,_down)
+    house,se= calc_gue(_up,_down)
+    
+    # 로깅
+    print("house :",house)
+    print("se :",se)
+    
     return render_template('hello.html', gues=result, mov=movs)
+
+def calc_gue(u,d):
+    strs = int(str(u)+str(d))
+    print("strs : ",strs)
+    for k, v in datas2.items():
+        for j in range(len(v)):
+            if v[j] == strs:
+                d = k
+                se = j+1
+    return d,se
 
 def calc_mv():
     return
