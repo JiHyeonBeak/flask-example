@@ -58,8 +58,10 @@ def get_num():
     movs = calc_mv()
     result = format_word(_up,_down)
     house,se= calc_gue(_up,_down)
+    gung = calc_gung(house)
     
     # 로깅
+    print("gung :",gung)
     print("house :",house)
     print("se :",se)
     
