@@ -7,5 +7,13 @@
 </head>
 <body>
     <div>{{ now }}</div>
+    <form method="POST" action="/shootingdata">
+        <input type="text" name="wrapData" value="하고 싶은 말을 쓰세요."/><input type="submit" value="보내기">
+    </form>
+    <div>
+        {% if rdata != null %}
+            {{ rdata }}
+        {% endif %}
+    </div>
 </body>
 </html>
