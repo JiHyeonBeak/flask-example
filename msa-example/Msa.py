@@ -13,8 +13,8 @@ def process_date():
 
 @app.route("/shootingdata", methods=['POST'])
 def add_data():
-    data = request.form.get("wrapData")
-    return render_template('main.html', rdata=data)
+    rdata = request.form.get("wrapData")
+    return redirect(url_for('call_sub',rdata=rdata))
 
 if __name__ == '__main__':
     app.run()
