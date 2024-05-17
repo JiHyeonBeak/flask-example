@@ -1,4 +1,5 @@
 from flask import *
+from http import HTTPStatus
 import datetime as dt
 import sqlite3
 
@@ -9,7 +10,11 @@ con = sqlite3.connect(':memory:',check_same_thread=False)
 
 @app.route('/wtisit')
 def process_date():
-    return dt.datetime.now()
+    now = dt.datetime.now()
+    return jsonify({
+        "now": now,
+        "status": HTTPStatus.OK
+    })
 
 if __name__ == '__main__':
-    app.run()
+    app.run('127.0.0.1',port=5010)

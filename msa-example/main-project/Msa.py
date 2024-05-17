@@ -1,6 +1,7 @@
 from flask import *
 import datetime as dt
 import sqlite3
+import requests
 
 app = Flask(__name__)
 # 메모리 DB. 일회성 접속
@@ -16,7 +17,10 @@ def call_sub():
     return render_template('main.html',now=now)
 
 def process_date():
-    return dt.datetime.now()
+    response = requests.get('http://localhost:5010/wtisit').json()
+    #response = response.json()
+    print(response)
+    return response.get('now')
 
 @app.route("/shootingdata", methods=['POST'])
 def add_data():
