@@ -14,13 +14,20 @@ cur.execute("CREATE TABLE MEMOBOARD(CONTENT text);")
 @app.route('/')
 def call_sub():
     now = process_date()
-    return render_template('main.html',now=now)
+    today = process_fortune()
+    return render_template('main.html',now=now,today=today)
 
 def process_date():
     response = requests.get('http://localhost:5010/wtisit').json()
     #response = response.json()
     print(response)
     return response.get('now')
+
+def process_fortune():
+    response = requests.get('http://localhost:5010/todayis').json()
+    #response = response.json()
+    print(response)
+    return response.get('result')
 
 @app.route("/shootingdata", methods=['POST'])
 def add_data():
