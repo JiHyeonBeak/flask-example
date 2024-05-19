@@ -11,10 +11,9 @@ con = sqlite3.connect(':memory:',check_same_thread=False)
 cur = con.cursor()
 cur.execute("CREATE TABLE Todayfortune(Date data, Content text);")
 
-now = ""
-
 @app.route('/wtisit')
 def process_date():
+    global now
     now = dt.datetime.now()
     return jsonify({
         "now": now,
@@ -27,6 +26,10 @@ def create_fortune():
     buf_num = r.randrange(0,3)
     result = ft[buf_num]
     cur.execute("INSERT INTO Todayfortune (Date,Content) VALUES (?,?);",(now,result))
+    cur.execute("SELECT * FROM Todayfortune")
+    for row in cur:
+        print(row)
+    cur.close
     return jsonify({
         "result": result,
         "status": HTTPStatus.OK
