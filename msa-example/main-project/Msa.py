@@ -40,5 +40,11 @@ def add_data():
     print("::: check data ::::",rdata)
     return redirect(url_for('call_sub',rdata=rdata))
 
+@app.route("/getList")
+def getList():
+    response = requests.get('http://localhost:5010/getList').json()
+    print("::: List :::: ",response)
+    return render_template('list.html',list=response.get('list'))
+
 if __name__ == '__main__':
     app.run()

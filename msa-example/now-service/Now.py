@@ -21,7 +21,7 @@ def process_date():
     })
 
 @app.route('/todayis')
-def create_fortune():
+def createFortune():
     ft = ["행복한 날이네요.","건강을 주의하세요.","공부하기 좋은 날이네요.","매사 신중하세요."]
     buf_num = r.randrange(0,3)
     result = ft[buf_num]
@@ -34,6 +34,17 @@ def create_fortune():
         "result": result,
         "status": HTTPStatus.OK
     })
+
+@app.route('/getList')
+def getList():
+    cur.execute("SELECT * FROM Todayfortune")
+    list = cur.fetchall()
+    cur.close
+    return jsonify({
+        "list": list,
+        "status": HTTPStatus.OK
+    })
+
 
 if __name__ == '__main__':
     app.run('127.0.0.1',port=5010)
