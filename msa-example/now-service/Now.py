@@ -14,7 +14,7 @@ cur.execute("CREATE TABLE Todayfortune(Date data, Content text);")
 @app.route('/wtisit')
 def process_date():
     global now
-    now = dt.datetime.now()
+    now = dt.datetime.now().strftime("%Y-%m-%d")
     return jsonify({
         "now": now,
         "status": HTTPStatus.OK
@@ -22,13 +22,19 @@ def process_date():
 
 @app.route('/todayis')
 def createFortune():
-    ft = ["행복한 날이네요.","건강을 주의하세요.","공부하기 좋은 날이네요.","매사 신중하세요."]
-    buf_num = r.randrange(0,3)
-    result = ft[buf_num]
-    cur.execute("INSERT INTO Todayfortune (Date,Content) VALUES (?,?);",(now,result))
     cur.execute("SELECT * FROM Todayfortune")
-    for row in cur:
-        print(row)
+    ch_date = cur.fetchone()
+    if ch_date == now or ch_date != None:
+        print("::: check date ::: ",ch_date[0])
+        result = ch_date[1]
+    else:
+        ft = ["행복한 날이네요.","건강을 주의하세요.","공부하기 좋은 날이네요.","매사 신중하세요."]
+        buf_num = r.randrange(0,3)
+        result = ft[buf_num]
+        cur.execute("INSERT INTO Todayfortune (Date,Content) VALUES (?,?);",(now,result))
+        cur.execute("SELECT * FROM Todayfortune")
+        for row in cur:
+            print(row)
     cur.close
     return jsonify({
         "result": result,
