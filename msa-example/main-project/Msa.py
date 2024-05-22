@@ -17,6 +17,10 @@ def call_sub():
     today = process_fortune()
     return render_template('main.html',now=now,today=today)
 
+@app.route('/getJoin')
+def call_joinPage():
+    return render_template('Join.html')
+
 def process_date():
     response = requests.get('http://localhost:5010/wtisit').json()
     #response = response.json()
@@ -45,6 +49,12 @@ def getList():
     response = requests.get('http://localhost:5010/getList').json()
     print("::: List :::: ",response)
     return render_template('list.html',list=response.get('list'))
+
+@app.route("/addUser")
+def addUser():
+    response = requests.get('http://localhost:5020/addUser').json()
+    print("::: addUser Response :::: ",response)
+    return response
 
 if __name__ == '__main__':
     app.run()
