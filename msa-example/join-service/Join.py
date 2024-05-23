@@ -15,7 +15,7 @@ cur.execute("CREATE TABLE HAMONICA_USER(user_name text,age int, email text,intro
 @app.route("/addUser", methods=['POST'])
 def add_user():
     now = dt.datetime.now().strftime("%Y-%m-%d-%H:%M:%S")
-    cur.execute('INSERT INTO HAMONICA_USER (user_name,age,email,introduce,join_date) VALUES(?,?,?,?);',(
+    cur.execute('INSERT INTO HAMONICA_USER (user_name,age,email,introduce,join_date) VALUES(?,?,?,?,?);',(
         request.form.get('userName', type=str),
         request.form.get('age', type=int),
         request.form.get('email', type=str),

@@ -50,11 +50,21 @@ def getList():
     print("::: List :::: ",response)
     return render_template('list.html',list=response.get('list'))
 
-@app.route("/addUser")
+@app.route("/addUser", methods=['POST'])
 def addUser():
-    response = requests.get('http://localhost:5020/addUser').json()
+    rdata = request.form
+    print("::: debug ::: ",rdata)
+    headers = {"Content-Type": "application/json"}
+    response = requests.post('http://localhost:5020/addUser',
+        json={
+        "userName": rdata.get("userName"),
+        "age": rdata.get('age'),
+        "email":rdata.get("email"),
+        "introduce":rdata.get("introduce")
+        }, 
+    headers=headers, timeout=10)
     print("::: addUser Response :::: ",response)
-    return response
+    return render_template('complete.html')
 
 if __name__ == '__main__':
     app.run()
