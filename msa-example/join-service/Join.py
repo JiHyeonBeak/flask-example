@@ -16,10 +16,10 @@ cur.execute("CREATE TABLE HAMONICA_USER(user_name text,age int, email text,intro
 def add_user():
     now = dt.datetime.now().strftime("%Y-%m-%d-%H:%M:%S")
     cur.execute('INSERT INTO HAMONICA_USER (user_name,age,email,introduce,join_date) VALUES(?,?,?,?,?);',(
-        request.form.get('userName', type=str),
-        request.form.get('age', type=int),
-        request.form.get('email', type=str),
-        request.form.get('introduce', type=str),
+        request.get_json()["userName"],
+        request.get_json()["age"],
+        request.get_json()["email"],
+        request.get_json()["introduce"],
         now
     ))
     cur.execute('SELECT * FROM HAMONICA_USER')
@@ -27,6 +27,7 @@ def add_user():
         print("::: check data ::::",row)
     cur.close
     return jsonify({
+        
         "status": HTTPStatus.OK
     })
 

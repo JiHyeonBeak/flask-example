@@ -52,15 +52,13 @@ def getList():
 
 @app.route("/addUser", methods=['POST'])
 def addUser():
-    rdata = request.form
-    print("::: debug ::: ",rdata)
     headers = {"Content-Type": "application/json"}
     response = requests.post('http://localhost:5020/addUser',
         json={
-        "userName": rdata.get("userName"),
-        "age": rdata.get('age'),
-        "email":rdata.get("email"),
-        "introduce":rdata.get("introduce")
+        "userName": request.form.get("userName"),
+        "age": request.form.get('age'),
+        "email": request.form.get("email"),
+        "introduce": request.form.get("introduce")
         }, 
     headers=headers, timeout=10)
     print("::: addUser Response :::: ",response)
