@@ -50,6 +50,10 @@ def getList():
     print("::: List :::: ",response)
     return render_template('list.html',list=response.get('list'))
 
+@app.route("/getMembers")
+def getMembers():
+    return render_template('memberList.html')
+
 @app.route("/addUser", methods=['POST'])
 def addUser():
     headers = {"Content-Type": "application/json"}
