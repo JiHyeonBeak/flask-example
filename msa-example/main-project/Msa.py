@@ -12,29 +12,29 @@ cur = con.cursor()
 cur.execute("CREATE TABLE MEMOBOARD(CONTENT text);")
 
 @app.route('/')
-def call_sub():
-    now = process_date()
-    today = process_fortune()
+def callSub():
+    now = processDate()
+    today = processFortune()
     return render_template('main.html',now=now,today=today)
 
 @app.route('/getJoin')
-def call_joinPage():
+def callJoinPage():
     return render_template('Join.html')
 
-def process_date():
+def processDate():
     response = requests.get('http://localhost:5010/wtisit').json()
     #response = response.json()
     print(response)
     return response.get('now')
 
-def process_fortune():
+def processFortune():
     response = requests.get('http://localhost:5010/todayis').json()
     #response = response.json()
     print(response)
     return response.get('result')
 
 @app.route("/shootingdata", methods=['POST'])
-def add_data():
+def addData():
     rdata = request.form.get("wrapData")
     cur.execute('INSERT INTO MEMOBOARD VALUES(:CONTENT);', {"CONTENT":rdata})
     cur.execute('SELECT * FROM MEMOBOARD')
@@ -52,7 +52,9 @@ def getList():
 
 @app.route("/getMembers")
 def getMembers():
-    return render_template('memberList.html')
+    response = requests.get('http://localhost:5020/getMembers').json()
+    print("::: Members :::: ",response)
+    return render_template('memberList.html',members=response.get('members'))
 
 @app.route("/addUser", methods=['POST'])
 def addUser():

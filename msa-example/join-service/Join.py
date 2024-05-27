@@ -13,7 +13,7 @@ cur = con.cursor()
 cur.execute("CREATE TABLE HAMONICA_USER(user_name text,age int, email text,introduce text, join_date date );")
 
 @app.route("/addUser", methods=['POST'])
-def add_user():
+def addUser():
     now = dt.datetime.now().strftime("%Y-%m-%d-%H:%M:%S")
     cur.execute('INSERT INTO HAMONICA_USER (user_name,age,email,introduce,join_date) VALUES(?,?,?,?,?);',(
         request.get_json()["userName"],
@@ -27,7 +27,16 @@ def add_user():
         print("::: check data ::::",row)
     cur.close
     return jsonify({
-        
+        "status": HTTPStatus.OK
+    })
+
+@app.route("/getMembers")
+def getMembers():
+    cur.execute('SELECT * FROM HAMONICA_USER')
+    list = cur.fetchall()
+    cur.close
+    return jsonify({
+        "members": list,
         "status": HTTPStatus.OK
     })
 
