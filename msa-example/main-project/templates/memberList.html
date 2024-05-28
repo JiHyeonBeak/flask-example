@@ -6,10 +6,23 @@
     <title>* ~ 하모니카 교실 사람들 ~ *</title>
 </head>
 <body>
-    <ul>
+    <table>
+        <tr>
+            <td>이름</td>
+            <td>나이</td>
+            <td>이메일</td>
+            <td>자기소개</td>
+            <td>가입일</td>
+        </tr>
         {% for m in members %}
-        <li>{{ m }}</li>
+            <tr>
+                <td>{{ m[0] }}</td>
+                <td>{{ m[1] }}</td>
+                <td>{{ m[2] }}</td>
+                <td>{{ m[3] }}</td>
+                <td>{{ m[4] }}</td>
+            </tr>
         {% endfor %}
-    </ul>
+    </table>
 </body>
 </html>
