@@ -42,7 +42,7 @@ def addData():
         print(row)
     cur.close
     print("::: check data ::::",rdata)
-    return redirect(url_for('call_sub',rdata=rdata))
+    return redirect(url_for('callSub',rdata=rdata))
 
 @app.route("/getList")
 def getList():
